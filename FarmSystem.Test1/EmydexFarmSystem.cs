@@ -1,34 +1,54 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using FarmSystem.Test2;
 
 namespace FarmSystem.Test1
 {
-    public class EmydexFarmSystem
-    {
-        //TEST 1
-        public void Enter(object animal)
-        {
-            //TODO Modify the code so that we can display the type of animal (cow, sheep etc) 
-            //Hold all the animals so it is available for future activities
-            Console.WriteLine("Animal has entered the Emydex farm");
-        }
-     
-        //TEST 2
-        public void MakeNoise()
-        {
-            //Test 2 : Modify this method to make the animals talk
-            Console.WriteLine("There are no animals in the farm");
-        }
+	public class EmydexFarmSystem
+	{
+		public event EventHandler<EventArgs> FarmEmpty;
 
-        //TEST 3
-        public void MilkAnimals()
-        {
-            Console.WriteLine("Cannot identify the farm animals which can be milked");
-        }
+		public Queue<Animal> Animals { get; set; }
+		public EmydexFarmSystem()
+		{
+			Animals = new Queue<Animal>();
+		}
 
-        //TEST 4
-        public void ReleaseAllAnimals()
-        {
-           Console.WriteLine("There are still animals in the farm, farm is not free");
-        }
-    }
+		//TEST 1
+		public void Enter(Animal animal)
+		{
+			Animals.Enqueue(animal);
+			Console.WriteLine($"{animal.Name} has entered the Emydex Farm");
+		}
+
+		//TEST 2
+		public void MakeNoise()
+		{
+			foreach (var animal in Animals)
+			{
+				animal.Talk();
+			}
+		}
+
+		//TEST 3
+		public void MilkAnimals()
+		{
+			foreach (var animal in Animals.OfType<IMilkableAnimal>())
+			{
+				animal.ProduceMilk();
+			}
+		}
+
+		//TEST 4
+		public void ReleaseAllAnimals()
+		{
+			while (Animals.Any()) {
+				var animal = Animals.Dequeue();
+				Console.WriteLine($"{animal.Name} has left the farm");
+			}
+			Animals.Clear();
+			FarmEmpty?.Invoke(this, new EventArgs());
+		}
+	}
 }

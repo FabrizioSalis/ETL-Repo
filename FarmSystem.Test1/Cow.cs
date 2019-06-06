@@ -1,53 +1,34 @@
 ﻿using System;
+using FarmSystem.Test2;
 
 namespace FarmSystem.Test1
 {
-    public class Cow 
-    {
-        private string _id;
-        private int _noOfLegs = 4;
+	public class Cow : Animal, IMilkableAnimal
+	{
+		public Cow() : base(4)
+		{
 
+		}
 
-        public string Id
-        {
-            get { return _id; }
-            set
-            {
-                _id = value;
-            }
-        }
+		public override void Talk()
+		{
+			Console.WriteLine("Cow says Moo!");
+		}
 
-        public int NoOfLegs
-        {
-            get
-            {
-                return _noOfLegs;
-            }
-            set
-            {
-                _noOfLegs = 4;
-            }
-        }
+		public override void Walk()
+		{
+			Console.WriteLine("Cow is walking");
+		}
 
-        public void Talk()
-        {
-            Console.WriteLine("Cow says Moo!");
-        }
+		public override void Run()
+		{
+			Console.WriteLine("Cow is running");
+		}
 
-        public void Walk()
-        {
-            Console.WriteLine("Cow is walking");
-        }
+		public void ProduceMilk()
+		{
+			Console.WriteLine("Cow was milked!");
+		}
 
-        public void ProduceMilk()
-        {
-            Console.WriteLine("Cow produced milk");
-        }
-
-        public void Run()
-        {
-            Console.WriteLine("Cow is running");
-        }
-
-    }
+	}
 }

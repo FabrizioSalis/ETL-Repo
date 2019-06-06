@@ -2,44 +2,22 @@
 
 namespace FarmSystem.Test1
 {
-    public class Sheep 
-    {
-       
-        private string _id;
-        private int _noOfLegs;
+	public class Sheep : Animal
+	{
+		public Sheep() : base(4)
+		{
+			
+		}
 
-        public string Id
-        {
-            get { return _id; }
-            set
-            {
-                _id = value;
-            }
-        }
+		public override void Talk()
+		{
+			Console.WriteLine("Sheep says baa!");
+		}
 
-
-        public int NoOfLegs
-        {
-            get
-            {
-                return _noOfLegs;
-            }
-            set
-            {
-                _noOfLegs = 4;
-            }
-        }
-
-
-        public void Talk()
-        {
-            Console.WriteLine("Sheep says baa!");
-        }
-        
-        public void Run()
-        {
-            Console.WriteLine("Sheep is running");
-        }
-    }
+		public override void Run()
+		{
+			Console.WriteLine("Sheep is running");
+		}
+	}
 
 }
